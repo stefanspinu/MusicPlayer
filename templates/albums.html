@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<br>
+<div class="container">
+
+  <header class="section-heading">
+    <h3 class="section-title">Albums</h3>
+  </header>
+  <hr>
+  <div class="row">
+    {% if albums %}
+    {% for album in albums %}
+    <div class="col-md-3">
+      <div class="thumbnail">
+        <a href="{% url 'albums_songs' album.name %}">
+          <img src="{% static 'images/bg.jpg' %}" class="img-responsive" height="200" width="200">
+        </a>
+        <center>
+          <h4 style="margin-left:-50px"><a href="{% url 'albums_songs' album.name %}" style="color: black;">{{album.name}}</a></h4>
+        </center>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>There isn't any playlist! First create new album.</p>
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock content %}

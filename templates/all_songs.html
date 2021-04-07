@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<div class="container">
+  <div class="col-md-13">
+    <form class="form-horizontal" role="search" method="get" action=''>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group">
+            <input type="text" class="form-control input-lg" style="border-radius: 5px;"
+            name="q" value="{{ request.GET.q }}" placeholder= "Search Songs "/>
+
+            <select name="languages" class="custom-select mx-1" style="border-radius: 5px;">
+              <option selected="selected" disabled>Languages</option>
+              {% if all_languages %}
+                  {% for language in all_languages %}
+                      <option value={{language}}>{{language}}</option>
+                  {% endfor %}
+              {% endif %}
+            </select>
+            <select name="singers" class="custom-select mx-1" style="border-radius: 5px;">
+              <option selected="selected" disabled>Singers</option>
+              {% if all_singers %}
+                  {% for singer in all_singers %}
+                      <option value={{singer}}>{{singer}}</option>
+                  {% endfor %}
+              {% endif %}
+            </select>
+                          
+            <span class='input-group-btn'>
+              <button type="submit" style="border-radius: 5px;" class="btn btn-primary">Search</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  {% if not query_search %}
+  <header class="section-heading">
+    <h5 class="section-title">ALL SONGS</h5>
+  </header>
+  <hr>
+  {% else %}
+  <header class="section-heading">
+    <h5 class="section-title">SEARCH RESULTS</h5>
+  </header>
+  <hr>
+  {% endif %}
+  <div class="row" style="margin-right: 65px;margin-left:-15px;">
+    {% if songs %}
+    {% for song in songs %}
+    <div class="col-sm-2 col-md-2" style="padding-bottom: 15px;">
+      <div class="hovereffect">
+        <img src="{{ song.song_img.url}}" class="img-responsive" height="135" width="135"
+          style="border-radius: 8px 8px 8px 8px;">
+        <div class="overlay">
+          <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'play_song' song.id %}"><i class="fa fa-play"
+              aria-hidden="true"></i></a>
+          <a class="btn btn-outline-light mt-5 mx-1" href="{% url 'detail' song.id %}"><i class="fa fa-info-circle"
+              aria-hidden="true"></i></a>
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+  </div>
+</div>
+
+<br>
+<br>
+{% endblock content %}
