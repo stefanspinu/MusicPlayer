@@ -1,4 +1,4 @@
-# temegratis
+# MusicPLayer
 A simple music player
 
 Install requirementes
